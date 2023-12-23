@@ -28,6 +28,7 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
     selector::init();
 	pros::lcd::register_btn1_cb(on_center_button);
+
 }
 
 /**
@@ -70,7 +71,13 @@ void autonomous() {
 
     }
     if(selector::auton == -1){
-        skills();
+//        imu_sensor.reset(true);
+//        imu_turnleftleft(180, 40);
+//        skills();
+    allianceauton();
+//        safeskills();
+//        oldskills();
+
 //        farauton();
 //        allianceauton();
     }
@@ -109,7 +116,7 @@ void opcontrol() {
         op_intake();
 //        intakeexpansionmodel();
         catapult();
-//        intakepiston();
+        intakepiston();
         blocker();
 //    pros::?lcd::print(1, "Motor power: %f\n", catabumper.get_value());
 		pros::delay(20);

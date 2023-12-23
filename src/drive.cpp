@@ -12,7 +12,7 @@ void op_intake() {
 }
 void op_drive() {
         double power = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        double turn = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
+        double turn = 0.88 * master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
         double leftactual = power + turn;
         double rightactual = power - turn;
 
@@ -35,10 +35,10 @@ void intakepiston() {
 }
 void blocker(){
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
-        wingspistons.set_value(true);
+        blockerpiston.set_value(true);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
-        wingspistons.set_value(false);
+        blockerpiston.set_value(false);
     }
 }
 int expansioncount = 0;
@@ -52,17 +52,25 @@ int expansioncount = 0;
 //        intakeexpansion2.move(-127);
 //    }
 //}
-bool primed = true;
+//bool primed = true
+bool catacount = false;
 void catapult(){
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-        cata1.move(127);
+        catacount = true;
 //        cata2.move(115);
+    }
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+        catacount = false;
+    }
+    if(catacount){
+        cata1.move(127);
     }
     else{
         cata1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
         cata2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
         cata1.brake();
         cata2.brake();
+        }
     }
         //        primed = false;
         //    }
@@ -97,6 +105,3 @@ void catapult(){
         //        cata1.move(90);
         //        cata2.move(90);
         //    }
-
-
-    }
