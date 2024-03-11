@@ -5,16 +5,12 @@
 #ifndef ACTUALOVERUNDER_AUTONOMOUS_H
 #define ACTUALOVERUNDER_AUTONOMOUS_H
 
-
-//void imu_turnleft(int target_angle, int speed);
-void imu_turnright(int target_angle, int speed);
-void imu_turnleft(int target_angle, int speed);
-void imu_turnleftleft(int target_angle, int speed);
-void allianceauton();
-void farauton();
+void auton_far_six();
+void close_auton_disrupt();
+void driverskills();
 void skills();
-void oldskills();
-void safeskills();
 void drive(int speed, int time);
+void auton_far();
+void close_auton_winpoint();
 
 #endif //ACTUALOVERUNDER_AUTONOMOUS_H

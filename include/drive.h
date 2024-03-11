@@ -4,4 +4,5 @@ void op_drive();
 void intakepiston();
 void catapult();
 void intakeexpansionmodel();
-void blocker();
+void wings();
+void hangfunc();

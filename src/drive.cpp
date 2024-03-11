@@ -1,20 +1,25 @@
 #include "main.h"
 void op_intake() {
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
         intake.move(127);
+        intake2.move(127);
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
         intake.move(-127);
+        intake2.move(-127);
     }
     else {
         intake.move(0);
+        intake2.move(0);
     }
 }
+
 void op_drive() {
         double power = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        double turn = 0.88 * master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
-        double leftactual = power + turn;
-        double rightactual = power - turn;
+        double turn =  0.9 * master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
+        double turnadditional = 0.2 * master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+        double leftactual = power + turn + turnadditional;
+        double rightactual = power - turn - turnadditional;
 
         DLF.move(leftactual);
         DLB.move(leftactual);
@@ -24,21 +29,20 @@ void op_drive() {
         DRM.move(rightactual);
 }
 
-
-void intakepiston() {
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-        wingspistons.set_value(true);
+//int leftwings = 0;
+//int rightwings = 0;
+void wings(){
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
+        leftwings.set_value(true);
     }
     else{
-        wingspistons.set_value(false);
+        leftwings.set_value(false);
     }
-}
-void blocker(){
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
-        blockerpiston.set_value(true);
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
+        rightwings.set_value(true);
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
-        blockerpiston.set_value(false);
+    else{
+        rightwings.set_value(false);
     }
 }
 int expansioncount = 0;
@@ -53,17 +57,27 @@ int expansioncount = 0;
 //    }
 //}
 //bool primed = true
+void hangfunc(){
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+        hang.set_value(true);
+    }
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+        hang.set_value(false);
+    }
+}
 bool catacount = false;
 void catapult(){
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
         catacount = true;
+//        left_side.move(0);
+//        right_side.move(0);
 //        cata2.move(115);
     }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
         catacount = false;
     }
     if(catacount){
-        cata1.move(127);
+        cata1.move_velocity(65);
     }
     else{
         cata1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
