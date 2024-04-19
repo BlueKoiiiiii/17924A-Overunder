@@ -24,7 +24,7 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    chassis.calibrate();
+//    chassis.calibrate();
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
     selector::init();
@@ -70,86 +70,15 @@ void competition_initialize() {}
  */
 void autonomous() {
     if (selector::auton == -1) {
-//        chassis.calibrate();
-        skills();
-//        auton_far_six();
+        auton_far_six();
 //        close_auton_disrupt();
     }
     if(selector::auton == 2){
-//        chassis.calibrate();
-        auton_far_six();
     }
     if(selector::auton == 3){
     }
     if(selector::auton == 1){
-        intake.move(127);
-        intake2.move(127);
-        chassis.setPose(0, 0, 0);
-        chassis.moveTo(0, 47, 1000);
-        drive(-80, 300);
-        chassis.setPose(0, 0, 0);
-        chassis.moveTo(0, 47, 1000);
-        chassis.setPose(-59, -23, 0);
-        chassis.moveTo(-59, -34, 900, 70);
-        chassis.turnTo(47, 7, 1000, false);
-        drive(-60, 1000);
-        chassis.turnTo(47, -2, 700, false);
-        cata1.move_velocity(65);
-        drive(-20, 700);
-        pros::delay(27000);
-        cata1.move(0);
-
-        drive(60, 200);
-        chassis.setPose(-61, -47, 35);
-        chassis.moveTo(-50, -49, 1000);
-        chassis.moveTo(18, -20, 1000, 90);
-        chassis.moveTo(18, -15, 1000, 80);
-        chassis.setPose(36, -51, 90);
-        chassis.moveTo(60, -39, 1000);
-        chassis.moveTo(59, -23, 1000);
-        drive(-80, 300);
-        chassis.moveTo(59, -10, 1000);
-        drive(-80, 200);
-        chassis.setPose(62, -30, 0);
-        chassis.turnTo(12, -28, 1000, true);
-        chassis.moveTo(9, -28, 1000);
-        chassis.turnTo(47, -18, 1000, false);
-        chassis.moveTo(47, -18, 1000);
-        drive(-80, 300);
-        drive(120, 1000);
-        chassis.moveTo(0, -6, 1000, 70);
-        leftwings.set_value(true);
-        chassis.moveTo(47, -7, 1000);
-        drive(-80, 300);
-        drive(120, 1000);
-        leftwings.set_value(false);
-        chassis.moveTo(0, 0, 1000, 70);
-        chassis.moveTo(54, 30, 1000);
-        chassis.turnTo(61, 1, 1000, false);
-        chassis.moveTo(61, 1, 1000);
-        chassis.turnTo(57. -6, 1000, false);
-        drive(-80, 200);
-        drive(120, 1000);
-        drive(-80, 200);
-        drive(120, 1000);
-//        chassis.moveTo(63, -8, 2000);
-
-
-//        chassis.moveTo()
-//        skills();
-//        close_auton_disrupt();
-//        close_auton_winpoint();
-//        void auton_far();
     }
-//    if(selector::auton == -2){
-//    //redautonomous
-//    }
-//    if(selector::auton == -3){
-//    //redautonomous
-//    }
-//    if(selector::auton == 0){
-//    //redautonomous
-//    }
 }
 
 
@@ -169,20 +98,15 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+
 //    driverskills();
 //    catabumper.calibrate;
 
 	while (true) {
-//        left_side.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
-//        right_side.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
         op_drive();
         op_intake();
         hangfunc();
-//        intakeexpansionmodel();
-        catapult();
-//        intakepiston();
         wings();
-//    pros::?lcd::print(1, "Motor power: %f\n", catabumper.get_value());
 		pros::delay(10);
 	}
 }

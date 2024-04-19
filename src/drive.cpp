@@ -2,15 +2,12 @@
 void op_intake() {
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
         intake.move(127);
-        intake2.move(127);
     }
     else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
         intake.move(-127);
-        intake2.move(-127);
     }
     else {
         intake.move(0);
-        intake2.move(0);
     }
 }
 
@@ -21,28 +18,30 @@ void op_drive() {
         double leftactual = power + turn + turnadditional;
         double rightactual = power - turn - turnadditional;
 
-        DLF.move(leftactual);
-        DLB.move(leftactual);
-        DRF.move(rightactual);
-        DRB.move(rightactual);
-        DLM.move(leftactual);
-        DRM.move(rightactual);
+    DLF.move(leftactual);
+    DLB.move(leftactual);
+    DLBB.move(leftactual);
+    DRF.move(rightactual);
+    DRB.move(rightactual);
+    DLM.move(leftactual);
+    DRM.move(rightactual);
+    DRBB.move(rightactual);
 }
 
 //int leftwings = 0;
 //int rightwings = 0;
 void wings(){
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
-        leftwings.set_value(true);
+        frontwings.set_value(true);
     }
     else{
-        leftwings.set_value(false);
+        frontwings.set_value(false);
     }
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
-        rightwings.set_value(true);
+        backwings.set_value(true);
     }
     else{
-        rightwings.set_value(false);
+        backwings.set_value(false);
     }
 }
 int expansioncount = 0;
@@ -65,27 +64,6 @@ void hangfunc(){
         hang.set_value(false);
     }
 }
-bool catacount = false;
-void catapult(){
-    if (master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
-        catacount = true;
-//        left_side.move(0);
-//        right_side.move(0);
-//        cata2.move(115);
-    }
-    else if (master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
-        catacount = false;
-    }
-    if(catacount){
-        cata1.move_velocity(65);
-    }
-    else{
-        cata1.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-        cata2.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-        cata1.brake();
-        cata2.brake();
-        }
-    }
         //        primed = false;
         //    }
         //    if (not primed){
