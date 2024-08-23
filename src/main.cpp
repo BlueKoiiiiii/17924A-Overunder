@@ -24,7 +24,7 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-//    chassis.calibrate();
+    chassis.calibrate();
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
     selector::init();
@@ -70,8 +70,9 @@ void competition_initialize() {}
  */
 void autonomous() {
     if (selector::auton == -1) {
-        auton_far_six();
-//        close_auton_disrupt();
+//        driverskills();
+//        auton_far_six();
+        close_auton_disrupt();
     }
     if(selector::auton == 2){
     }
